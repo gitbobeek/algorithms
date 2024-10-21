@@ -1,24 +1,18 @@
 import random
 
 
-def selection_sort(array):
-    arr_size = len(array)
-    for ind in range(arr_size):
-        min_index = ind
+def selection_sort(array, arr_size):
+    for i in range(arr_size):
+        min_index = i
 
-        for j in range(ind + 1, arr_size):
+        for j in range(i + 1, arr_size):
             if array[j] < array[min_index]:
                 min_index = j
-        (array[ind], array[min_index]) = (array[min_index], array[ind])
+        (array[i], array[min_index]) = (array[min_index], array[i])
 
 
-def insertion_sort(array):
-    n = len(array)
-
-    if n <= 1:
-        return
-
-    for i in range(1, n):
+def insertion_sort(array, arr_size):
+    for i in range(1, arr_size):
         key = array[i]
         j = i - 1
         while j >= 0 and key < array[j]:
@@ -27,13 +21,13 @@ def insertion_sort(array):
         array[j + 1] = key
 
 
-def bubble_sort(arr):
-    for n in range(len(arr) - 1, 0, -1):
+def bubble_sort(array, arr_size):
+    for n in range(arr_size - 1, 0, -1):
         swapped = False
         for i in range(n):
-            if arr[i] > arr[i + 1]:
+            if array[i] > array[i + 1]:
                 swapped = True
-                arr[i], arr[i + 1] = arr[i + 1], arr[i]
+                array[i], array[i + 1] = array[i + 1], array[i]
         if not swapped:
             break
 
