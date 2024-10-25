@@ -1,16 +1,16 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-n = np.linspace(1, 100, 100)
+n = np.linspace(1, 100, 10)
 
 t1 = n * np.log(n)
 t2 = n * np.log(n)
-t3 = n**2
+t3 = n * np.log(n)
 
 plt.grid()
 plt.ylabel('T(N)')
 plt.xlabel('N')
-plt.title('Quick sort time complexity')
+plt.title('Heap sort time complexity')
 
 plt.plot(n, t1, label="Best case ")
 plt.plot(n, t2, label="Average case")

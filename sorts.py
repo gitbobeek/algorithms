@@ -116,15 +116,18 @@ def pratt_increment(n):
                 break
             increments.append(increment)
             j += 1
+            if j > 10:
+                break
         if increments and increments[-1] >= n:
             break
         i += 1
+        if i > 16:
+            break
 
     increments = list(sorted(set(increments)))
     return increments
 
-def shell_sort_pratt(arr):
-    arr_size = len(arr)
+def shell_sort_pratt(arr, arr_size):
     steps = pratt_increment(arr_size)
 
     for step in reversed(steps):
@@ -137,7 +140,7 @@ def shell_sort_pratt(arr):
                 delta = j - step
 
 
-def quick_sort(array):
+def quick_sort(array, arr_size):
     if len(array) <= 1:
         return array
 
@@ -154,28 +157,29 @@ def quick_sort(array):
         else:
             right.append(x)
 
-    return quick_sort(left) + middle + quick_sort(right)
+    return quick_sort(left, arr_size) + middle + quick_sort(right, arr_size)
 
 
-def heapify(nums, heap_size, root_index):
-    largest = root_index
-    left_child = (2 * root_index) + 1
-    right_child = (2 * root_index) + 2
+def max_heapify(A, heap_size, i):
+    left = 2 * i + 1
+    right = 2 * i + 2
+    largest = i
+    if left < heap_size and A[left] > A[largest]:
+        largest = left
+    if right < heap_size and A[right] > A[largest]:
+        largest = right
+    if largest != i:
+        A[i], A[largest] = A[largest], A[i]
+        max_heapify(A, heap_size, largest)
 
-    if left_child < heap_size and nums[left_child] > nums[largest]:
-        largest = left_child
-
-    if right_child < heap_size and nums[right_child] > nums[largest]:
-        largest = right_child
-
-    if largest != root_index:
-        nums[root_index], nums[largest] = nums[largest], nums[root_index]
-        heapify(nums, heap_size, largest)
+def build_heap(A):
+    heap_size = len(A)
+    for i in range((heap_size // 2), -1, -1):
+        max_heapify(A, heap_size, i)
 
 def heap_sort(array, arr_size):
-    for i in range(arr_size, -1, -1):
-        heapify(array, arr_size, i)
-
+    build_heap(array)
     for i in range(arr_size - 1, 0, -1):
-        array[i], array[0] = array[0], array[i]
-        heapify(array, i, 0)
+        array[0], array[i] = array[i], array[0]
+        arr_size -= 1
+        max_heapify(array, arr_size, 0)
